@@ -1,0 +1,106 @@
+<div class="welcome-page">
+  <h2>Discovery Phone Directory User Registration</h2>
+
+  <div
+    class="registration-form"
+    [formGroup]="registrationForm"
+    (ngSubmit)="registerUser()"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Name" />
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-error
+        *ngIf="errorHandling('name', 'required') && registrationForm.controls.name.touched"
+        >Name is required</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label>Surname</mat-label>
+      <input matInput formControlName="surname" placeholder="Surname" />
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-error
+        *ngIf="errorHandling('surname', 'required') && registrationForm.controls.surname.touched"
+        >Surname is required</mat-error
+      > </mat-form-field
+    ><br />
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Email" />
+      <mat-icon matSuffix>mail</mat-icon>
+      <mat-error
+        *ngIf="errorHandling('email', 'required') && registrationForm.controls.email.touched"
+        >Email is required</mat-error
+      >
+      <mat-error
+        *ngIf="errorHandling('email', 'pattern') && registrationForm.controls.email.touched"
+        >Please enter a valid email</mat-error
+      > </mat-form-field
+    ><br />
+    <mat-form-field appearance="outline" class="password-field">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Password"
+      />
+      <mat-icon matSuffix (click)="changePasswordVisibility()"
+        >{{passwordIcon}}</mat-icon
+      >
+      <mat-error
+        *ngIf="errorHandling('password', 'required') && registrationForm.controls.password.touched"
+        >Password is required</mat-error
+      ></mat-form-field
+    ><br />
+    <mat-form-field appearance="outline" class="password-field">
+      <mat-label>Confirm password</mat-label>
+      <input
+        matInput
+        formControlName="confirmPassword"
+        [type]="showConfirmPassword ? 'text' : 'password'"
+        placeholder="Confirm Password"
+      />
+      <mat-icon matSuffix (click)="changeConfirmPasswordVisibility()"
+        >{{confirmPasswordIcon}}</mat-icon
+      >
+      <mat-error
+        *ngIf="errorHandling('name', 'required') && registrationForm.controls.name.touched"
+        >Please confirm password</mat-error
+      ></mat-form-field
+    ><br />
+    <button
+      mat-flat-button
+      [disabled]="!registrationForm.valid"
+      type="submit"
+      color="primary"
+      (click)="registerUser()"
+    >
+      Register User
+    </button>
+    <button
+      *ngIf="success"
+      mat-flat-button
+      type="submit"
+      color="primary"
+      (click)="gotoLogin()"
+    >
+      Log In
+    </button>
+  </div>
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{errorMessage}}
+  </div>
+  <div *ngIf="success" class="alert alert-success" role="alert">
+    {{successMessage}}
+  </div>
+  <div
+    class="spinner"
+    fxLayout="row"
+    fxLayoutAlign="space-around center"
+    style="height: 100%;"
+  >
+    <mat-spinner diameter="30" class="overlay" *ngIf="spinner"></mat-spinner>
+  </div>
+</div>

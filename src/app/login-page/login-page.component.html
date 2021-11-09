@@ -1,0 +1,51 @@
+<div class="welcome-page">
+  <h2>Discovery Phone Directory</h2>
+  <div class="login-form" [formGroup]="loginForm" (ngSubmit)="logIn()">
+    <mat-form-field appearance="outline">
+      <mat-label>Enter email</mat-label>
+      <input matInput formControlName="email" placeholder="Email" />
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-error
+        *ngIf="errorHandling('email', 'required') && loginForm.controls.email.touched"
+        >Email is required</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="password-field">
+      <mat-label>Enter password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Password"
+      />
+      <mat-icon matSuffix (click)="changeVisibility()">{{icon}}</mat-icon>
+      <mat-error
+        *ngIf="errorHandling('password', 'required') && loginForm.controls.password.touched"
+        >Password is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{errorMessage}}
+  </div>
+
+  <button
+    mat-flat-button
+    [disabled]="!loginForm.valid"
+    color="primary"
+    (click)="logIn()"
+  >
+    Log in
+  </button>
+  <button mat-flat-button color="primary" (click)="registerUser()">
+    Sign up
+  </button>
+  <div
+    class="spinner"
+    fxLayout="row"
+    fxLayoutAlign="space-around center"
+    style="height: 100%;"
+  >
+    <mat-spinner diameter="30" class="overlay" *ngIf="spinner"></mat-spinner>
+  </div>
+</div>

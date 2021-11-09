@@ -1,0 +1,89 @@
+<h2 mat-dialog-title>New contact</h2>
+<mat-dialog-content class="mat-typography">
+  <div
+    class="contact-form"
+    [formGroup]="newContactForm"
+    (ngSubmit)="submitForm()"
+  >
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter name</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Name" />
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error
+          *ngIf="errorHandling('name', 'required') && newContactForm.controls.name.touched"
+          >Name is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="contact-surname" appearance="outline">
+        <mat-label>Enter surname</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="surname"
+          placeholder="Surname"
+        />
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error
+          *ngIf="errorHandling('surname', 'required') && newContactForm.controls.surname.touched"
+          >Surname is required</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter email</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="email"
+          placeholder="Email"
+        />
+        <mat-icon matSuffix>mail</mat-icon>
+        <mat-error
+          *ngIf="errorHandling('email', 'required') && newContactForm.controls.email.touched"
+          >Email is required</mat-error
+        >
+        <mat-error
+          *ngIf="errorHandling('email', 'pattern') && newContactForm.controls.email.touched"
+          >Please enter a valid email address</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="contact-surname" appearance="outline">
+        <mat-label>Enter phone number</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="phoneNumber"
+          placeholder="Phone Number"
+        />
+        <mat-icon matSuffix>phone_iphone</mat-icon>
+        <mat-error
+          *ngIf="errorHandling('phoneNumber', 'required') && newContactForm.controls.phoneNumber.touched"
+          >Phone number is required</mat-error
+        >
+        <mat-error
+          *ngIf="errorHandling('phoneNumber', 'maxlength') && newContactForm.controls.phoneNumber.touched"
+          >Phone number should be 10 numbers</mat-error
+        >
+        <mat-error
+          *ngIf="errorHandling('phoneNumber', 'minlength') && newContactForm.controls.phoneNumber.touched"
+          >Phone number should be 10 numbers</mat-error
+        >
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    [disabled]="!newContactForm.valid"
+    [mat-dialog-close]="true"
+    type="submit"
+    (click)="submitForm()"
+    color="primary"
+  >
+    Add contact
+  </button>
+</mat-dialog-actions>
